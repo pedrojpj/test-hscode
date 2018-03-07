@@ -16,6 +16,9 @@ const styles = theme => ({
     display: 'flex',
     flex: '1 1 auto'
   },
+  listContainer: {
+    width: '100%'
+  },
   listItem: {
     borderBottom: '2px solid #eeeeee',
     width: '100%'
@@ -34,7 +37,7 @@ const styles = theme => ({
 
 const ListView = ({ items, classes, onChange }) => (
   <div className={classes.list}>
-    <List dense={false}>
+    <List dense={false} className={classes.listContainer}>
       {items.map(item => (
         <ListItem
           button

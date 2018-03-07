@@ -3,14 +3,15 @@ import {
   SELECT_HEADING,
   SELECT_SUBHEADING,
   RESET_VALUE,
+  RESET_ALL,
   ADD_CODE
 } from './actionsTypes';
 import { loggerReducer } from '../../utils/logger';
 
 export const initialState = {
-  chapter: '00',
-  heading: '00',
-  subheading: '00',
+  chapter: { value: '00', insert: false },
+  heading: { value: '00', insert: false },
+  subheading: { value: '00', insert: false },
   code: ''
 };
 
@@ -23,21 +24,30 @@ export const reducer = (state = initialState, action) => {
     case SELECT_CHAPTER: {
       return {
         ...state,
-        chapter
+        chapter: {
+          value: chapter,
+          insert: true
+        }
       };
     }
 
     case SELECT_HEADING: {
       return {
         ...state,
-        heading
+        heading: {
+          value: heading,
+          insert: true
+        }
       };
     }
 
     case SELECT_SUBHEADING: {
       return {
         ...state,
-        subheading
+        subheading: {
+          value: subheading,
+          insert: true
+        }
       };
     }
 
@@ -45,6 +55,15 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...value
+      };
+    }
+
+    case RESET_ALL: {
+      return {
+        ...state,
+        subheading: initialState.subheading,
+        chapter: initialState.chapter,
+        heading: initialState.heading
       };
     }
 

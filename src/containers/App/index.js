@@ -11,14 +11,21 @@ import {
 import { withModal, withActions } from 'recompose-extends';
 
 import { logger } from '../../utils/logger';
-import { selectChapter, selectHeading, selectSubheading, resetValue, addCode } from './actions';
+import {
+  selectChapter,
+  selectHeading,
+  selectSubheading,
+  resetValue,
+  addCode,
+  resetAll
+} from './actions';
 import { reducer, initialState } from './reducer';
 import App from '../../components/App';
 import Modal from '../../containers/Modal';
 
 export default compose(
   withReducer('state', 'dispatch', reducer, initialState),
-  withActions({ selectChapter, selectHeading, selectSubheading, resetValue, addCode }),
+  withActions({ selectChapter, selectHeading, selectSubheading, resetValue, resetAll, addCode }),
   mapProps(({ state, ...rest }) => ({ ...state, ...rest })),
   withStateHandlers(
     { modal: false },
@@ -27,8 +34,11 @@ export default compose(
       hideModal: () => () => ({ modal: false })
     }
   ),
-  withModal(({ modal }) => modal, Modal, ({ hideModal, addCode }) => ({
-    onCloseModal: () => hideModal(),
+  withModal(({ modal }) => modal, Modal, ({ hideModal, addCode, resetAll }) => ({
+    onCloseModal: () => {
+      hideModal();
+      resetAll();
+    },
     onSaveModal: () => {
       hideModal();
       addCode();

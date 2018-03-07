@@ -88,7 +88,7 @@ const ModalView = ({
         Selected HS-Code
       </Typography>
 
-      <Typography>{`${chapter} - ${heading} - ${subheading}`}</Typography>
+      <Typography>{`${chapter.value} - ${heading.value} - ${subheading.value}`}</Typography>
     </Paper>
     <AppBar position="static" color="default">
       <Tabs
@@ -100,8 +100,8 @@ const ModalView = ({
         centered
       >
         <Tab label="chapter" onClick={() => resetValue('chapter')} />
-        <Tab label="heading" disabled={chapter === '00'} onClick={() => resetValue('heading')} />
-        <Tab label="subheading" disabled={heading === '00'} />
+        <Tab label="heading" disabled={!chapter.insert} onClick={() => resetValue('heading')} />
+        <Tab label="subheading" disabled={!heading.insert} />
       </Tabs>
     </AppBar>
     <div className={classes.container}>
@@ -112,15 +112,15 @@ const ModalView = ({
       )}
       {selectedTab === 1 && (
         <TabContainer dir={theme.direction}>
-          <Headings {...rest} chapter={chapter} onChange={onChangeHeading} />
+          <Headings {...rest} chapter={chapter.value} onChange={onChangeHeading} />
         </TabContainer>
       )}
       {selectedTab === 2 && (
         <TabContainer dir={theme.direction}>
           <Subheadings
             {...rest}
-            chapter={chapter}
-            heading={heading}
+            chapter={chapter.value}
+            heading={heading.value}
             onChange={onChangeSubheading}
           />
         </TabContainer>
@@ -129,6 +129,7 @@ const ModalView = ({
     <div>
       <Button
         variant="raised"
+        id="close-button"
         color="default"
         className={classes.buttonBottom}
         onClick={onCloseModal}
@@ -138,6 +139,7 @@ const ModalView = ({
       </Button>
       <Button
         variant="raised"
+        id="save-button"
         color="primary"
         disabled={activeButton()}
         className={classes.buttonBottom}
@@ -159,9 +161,9 @@ ModalView.propTypes = {
   onChangeHeading: PropTypes.func,
   onChangeSubheading: PropTypes.func,
   theme: PropTypes.object.isRequired,
-  chapter: PropTypes.string,
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
+  chapter: PropTypes.shape({ value: PropTypes.string, insert: PropTypes.bool }),
+  heading: PropTypes.shape({ value: PropTypes.string, insert: PropTypes.bool }),
+  subheading: PropTypes.shape({ value: PropTypes.string, insert: PropTypes.bool }),
   resetValue: PropTypes.func,
   activeButton: PropTypes.func
 };

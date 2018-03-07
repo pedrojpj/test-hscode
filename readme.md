@@ -26,3 +26,7 @@ In dev mode:
 Prepare for production:
 
 `yarn build`
+
+### Test
+
+`yarn test`

@@ -37,11 +37,8 @@ const App = ({ classes, selectCode, code, onChangeCode }) => (
   <div className={classes.root}>
     <AppBar position="static">
       <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-          <MenuIcon />
-        </IconButton>
         <Typography variant="title" color="inherit" className={classes.flex}>
-          Title
+          Test Outvio by Pedro Peña
         </Typography>
       </Toolbar>
     </AppBar>

@@ -22,15 +22,15 @@ export default compose(
       selectSubheading(value);
     },
     activeButton: ({ chapter, heading, subheading }) => () => {
-      if (chapter == '00') {
+      if (!chapter.insert) {
         return true;
       }
 
-      if (heading == '00') {
+      if (!heading.insert) {
         return true;
       }
 
-      if (subheading == '00') {
+      if (!subheading.insert) {
         return true;
       }
 
